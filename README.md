@@ -52,7 +52,7 @@ No `.env` file is needed. The server reads `PORT` (default `4000`) and `LOG_LEVE
 
 ## Deployment
 
-Pushing a tag such as `v1.2.0` runs [`.github/workflows/docker.yml`](.github/workflows/docker.yml). It type-checks and lints the code, then builds the image and pushes it to `ghcr.io/scripthly/scripthly.com`. To run the published image:
+Pushing a tag such as `v1.2.0` runs [`.github/workflows/docker.yml`](.github/workflows/docker.yml). It type-checks and lints the code, then builds the image for both amd64 and arm64 servers and pushes it to `ghcr.io/scripthly/scripthly.com`. To run the published image:
 
 ```sh
 docker compose up -d

@@ -1,16 +1,20 @@
 # syntax=docker/dockerfile:1
 
-FROM node:24.21.0-bookworm-slim AS base
+ARG NODE_IMAGE=node:24.21.0-bookworm-slim
+ARG PNPM_VERSION=12.6.0
+
+FROM scratch AS manifests
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml /
+COPY apps/client/package.json /apps/client/
+COPY apps/server/package.json /apps/server/
+COPY packages/shared/package.json /packages/shared/
+
+# ? The client compiles to static files that suit every platform, so it builds once natively instead of under emulation.
+FROM --platform=$BUILDPLATFORM ${NODE_IMAGE} AS build
+ARG PNPM_VERSION
 WORKDIR /app
-
-FROM base AS workspace
-RUN corepack enable && corepack prepare pnpm@12.6.0 --activate
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY apps/client/package.json ./apps/client/
-COPY apps/server/package.json ./apps/server/
-COPY packages/shared/package.json ./packages/shared/
-
-FROM workspace AS build
+RUN corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate
+COPY --from=manifests / ./
 RUN pnpm install --frozen-lockfile --filter @scripthly/client...
 COPY tsconfig.base.json ./
 COPY types ./types
@@ -18,10 +22,15 @@ COPY packages/shared ./packages/shared
 COPY apps/client ./apps/client
 RUN pnpm build
 
-FROM workspace AS server-deps
+FROM ${NODE_IMAGE} AS server-deps
+ARG PNPM_VERSION
+WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@${PNPM_VERSION} --activate
+COPY --from=manifests / ./
 RUN pnpm install --frozen-lockfile --prod --filter @scripthly/server...
 
-FROM base AS runtime
+FROM ${NODE_IMAGE} AS runtime
+WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=4000
 
