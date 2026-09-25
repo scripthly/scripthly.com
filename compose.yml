@@ -8,5 +8,5 @@ services:
       LOG_LEVEL: INFO
       FORCE_COLOR: "1"
     ports:
-      # ? Host port the previous prod .env used, so the existing reverse proxy keeps working.
+      # ? The port the reverse proxy forwards to.
       - "${HOST_PORT:-4444}:4000"

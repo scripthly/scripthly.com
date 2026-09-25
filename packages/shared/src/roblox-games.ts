@@ -19,7 +19,7 @@ export interface RobloxGamesResponse {
 	updatedAt: string;
 }
 
-/** Portfolio games in display order. The server only fetches stats for these. */
+/** Portfolio games in display order, and the only games the server fetches stats for. */
 export const ROBLOX_GAMES: RobloxGame[] = [
 	{
 		placeId: 2609668898,

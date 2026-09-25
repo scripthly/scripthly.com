@@ -65,9 +65,21 @@ assert(LOG_LEVEL in logging.levels, `Invalid log level: ${LOG_LEVEL}`);
 
 const originalFactory = logging.methodFactory;
 
+/**
+ * Builds each loglevel method so every line starts with the time, level and app name.
+ * @param methodName Log method being built, such as `info`.
+ * @param logLevel Level the logger is set to.
+ * @param loggerName Name of the logger.
+ * @returns Log function that takes the app name first.
+ */
 logging.methodFactory = function (methodName, logLevel, loggerName) {
 	const rawMethod = originalFactory(methodName, logLevel, loggerName);
 
+	/**
+	 * Logs a message under an app's coloured label.
+	 * @param appName App the message belongs to.
+	 * @param message Parts of the message.
+	 */
 	return function (appName: AppName, ...message: string[]) {
 		const currentDate = new Date().toLocaleTimeString("en-GB", { hour12: false });
 		const logLevelName = logLevelMapping[methodName as LogLevelNames];

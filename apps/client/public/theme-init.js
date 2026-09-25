@@ -1,6 +1,6 @@
-// Applies a saved light theme before first paint. A file rather than an inline script so the CSP can stay script-src 'self'.
+// ? Applies a saved light theme before first paint, from a file so the CSP can keep script-src 'self'.
 try {
 	if (localStorage.getItem("mui-mode") === "light") document.documentElement.classList.add("light");
 } catch {
-	// Storage can be blocked; the site then stays on the dark default.
+	// ? Storage can be blocked, which leaves the dark default.
 }

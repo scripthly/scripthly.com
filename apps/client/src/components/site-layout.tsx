@@ -17,6 +17,12 @@ function SiteLayout() {
 			<Box
 				aria-hidden
 				sx={(theme) => {
+					/**
+					 * Builds the backdrop's dot grid and corner tint.
+					 * @param dots Opacity of the dots.
+					 * @param tint Opacity of the brand-blue tint.
+					 * @returns Value for `background-image`.
+					 */
 					const layers = (dots: number, tint: number) =>
 						[
 							`radial-gradient(circle at 1px 1px, ${theme.alpha(theme.vars.palette.text.primary, dots)} 1px, transparent 0)`,

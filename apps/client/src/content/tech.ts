@@ -40,7 +40,7 @@ export const SKILL_GROUPS = ["Languages", "Frontend & desktop", "Backend & APIs"
 
 export type SkillGroup = (typeof SKILL_GROUPS)[number];
 
-/** Brand colours from Simple Icons; black brand marks have none and take the text colour instead. */
+/** Logo and Simple Icons brand colour; overrides keep 3:1 contrast per scheme, and black marks take the text colour. */
 export interface Tech {
 	group: SkillGroup;
 	icon: IconType;
@@ -49,8 +49,7 @@ export interface Tech {
 	colorOnLight?: string;
 }
 
-// ? Every technology here is listed under Skills, so anything on a project card shows up there too.
-// ? Overrides nudge a brand colour just far enough to keep 3:1 contrast on that scheme's cards.
+/** Every technology on the site: Skills lists them all and project stacks pick from them. */
 export const TECH = {
 	TypeScript: { group: "Languages", icon: SiTypescript, color: "#3178c6" },
 	JavaScript: { group: "Languages", icon: SiJavascript, color: "#f7df1e", colorOnLight: "#a59514" },
