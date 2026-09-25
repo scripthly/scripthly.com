@@ -1,0 +1,12 @@
+services:
+  scripthly:
+    image: ghcr.io/scripthly/scripthly.com:${IMAGE_TAG:-latest}
+    build: .
+    container_name: scripthly
+    restart: unless-stopped
+    environment:
+      LOG_LEVEL: INFO
+      FORCE_COLOR: "1"
+    ports:
+      # ? Host port the previous prod .env used, so the existing reverse proxy keeps working.
+      - "${HOST_PORT:-4444}:4000"

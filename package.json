@@ -1,0 +1,33 @@
+{
+	"name": "scripthly",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@12.6.0",
+	"engines": {
+		"node": ">=24"
+	},
+	"scripts": {
+		"dev": "pnpm --parallel --filter @scripthly/server --filter @scripthly/client dev",
+		"dev:client": "pnpm --filter @scripthly/client dev",
+		"dev:server": "pnpm --filter @scripthly/server dev",
+		"build": "pnpm --filter @scripthly/client build",
+		"start": "pnpm --filter @scripthly/server start",
+		"lint": "eslint --fix \"**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}\"",
+		"typecheck": "pnpm -r exec tsc --noEmit"
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@types/node": "^26.6.2",
+		"eslint": "^10.11.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.6",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-simple-import-sort": "^14.0.0",
+		"eslint-plugin-unused-imports": "^4.4.1",
+		"globals": "^17.12.0",
+		"prettier": "^3.9.9",
+		"typescript": "~6.0.3",
+		"typescript-eslint": "^8.70.1"
+	}
+}

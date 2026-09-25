@@ -1,0 +1,11 @@
+node_modules
+dist
+.env
+.env.*
+.vscode
+*.tsbuildinfo
+
+# Local AI assistant rules and settings
+.cursor/
+.claude/
+CLAUDE.md

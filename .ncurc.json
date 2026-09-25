@@ -1,0 +1,4 @@
+{
+	"packageManager": "pnpm",
+	"packageFile": "**/package.json"
+}
